@@ -1,0 +1,86 @@
+@use '/src/styles/vars' as *;
+
+.kumbh {
+    font-family: $kumbh;
+}
+
+.roboto {
+    font-family: $roboto;
+}
+
+.space {
+    font-family: $space;
+}
+
+.fontButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #eff1fa;
+    border: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    color: $darkBlue;
+    mix-blend-mode: normal;
+    opacity: 0.73;
+    cursor: pointer;
+}
+
+.fontButton:hover {
+    outline: 1px solid #eff1fa;
+    outline-offset: 5px;
+}
+
+.fontActive {
+    font-weight: 700;
+    line-height: 19px;
+    color: $white;
+    background-color: $bg-app;
+    opacity: 1;
+}
+
+.red {
+    background-color: $red;
+}
+.blue {
+    background-color: $cyan;
+}
+.purple {
+    background-color: $purple;
+}
+
+.red:hover {
+    outline: 1px solid rgb(248, 112, 112, 0.5);
+    outline-offset: 5px;
+}
+.blue:hover {
+    outline: 1px solid rgb(112, 243, 248, 0.5);
+    outline-offset: 5px;
+}
+.purple:hover {
+    outline: 1px solid rgb(216, 129, 248, 0.5);
+    outline-offset: 5px;
+}
+
+.colorButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    color: $darkBlue;
+    cursor: pointer;
+}

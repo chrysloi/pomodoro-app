@@ -1,0 +1,32 @@
+@use '/src/styles/vars' as *;
+@use '/src/styles/breakpoints' as *;
+
+.button {
+    width: 120px;
+    height: 48px;
+    border-radius: 26.5px;
+    color: $text-primary;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    background-color: transparent;
+    border: none;
+    mix-blend-mode: normal;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: all ease 0.3s;
+
+    @include breakpoint('mobile') {
+        width: 105.2px;
+        font: 12px;
+        line-height: 15px;
+    }
+}
+
+.active {
+    background-color: var(--app-color);
+    color: $darkBlue;
+    opacity: 100;
+}

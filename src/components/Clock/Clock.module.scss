@@ -1,0 +1,76 @@
+/* variables */
+@use '/src/styles/vars' as *;
+@use '/src/styles/breakpoints' as *;
+
+.clockContainer {
+    display: flex;
+    direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 410px;
+    height: 410px;
+    border-radius: 50%;
+    background: $clock-linear-gradient;
+    box-shadow: $clock-box-shadow;
+    margin-top: 45px;
+    transition: all ease 0.3s;
+
+    @include breakpoint(tablet) {
+        margin-top: 109px;
+    }
+
+    @include breakpoint(mobile) {
+        width: 300px;
+        height: 300px;
+        margin-top: 48px;
+    }
+}
+
+.clockContainerMobile {
+    display: flex;
+    direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 410px;
+    height: 410px;
+    border-radius: 50%;
+    background: $clock-linear-gradient;
+    box-shadow: $clock-box-shadow;
+    margin-top: 45px;
+}
+
+.clockDesktop {
+    display: flex;
+    direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 366px;
+    height: 366px;
+    background-color: $bg-app;
+    border-radius: 50%;
+    font-family: var(--font-family);
+    color: $text-primary;
+    transition: all ease 0.3s;
+
+    @include breakpoint(mobile) {
+        display: none;
+    }
+}
+
+.clockMobile {
+    display: none;
+    transition: all ease 0.3s;
+
+    @include breakpoint(mobile) {
+        display: flex;
+        direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 267.8px;
+        height: 267.8px;
+        background-color: $bg-app;
+        border-radius: 50%;
+        font-family: var(--font-family);
+        color: $text-primary;
+    }
+}

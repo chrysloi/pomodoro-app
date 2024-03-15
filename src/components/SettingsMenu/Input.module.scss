@@ -1,0 +1,94 @@
+@use '/src/styles/vars' as *;
+@use '/src/styles/breakpoints' as *;
+
+.timeInputWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 22px;
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    mix-blend-mode: normal;
+
+    @include breakpoint(mobile) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+        font-size: 12px;
+        line-height: 15px;
+        padding-bottom: 0px;
+    }
+
+    & label {
+        opacity: 0.4;
+    }
+}
+
+.timeInput {
+    position: relative;
+    margin-top: 8px;
+
+    @include breakpoint(mobile) {
+        margin-top: 0px;
+    }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input {
+    background: #eff1fa;
+    border-radius: 10px;
+    height: 48px;
+    width: 140px;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: $darkBlue;
+    border: none;
+    /* margin-top: 8px; */
+    outline: none;
+
+    @include breakpoint(mobile) {
+        height: 40px;
+    }
+}
+
+.stroke {
+    fill: none;
+    stroke: $darkBlue;
+    stroke-opacity: 0.25;
+    stroke-width: 2;
+}
+
+.timeInput:hover .stroke {
+    stroke-opacity: 1;
+}
+
+.timeInputButtons {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    right: 16px;
+    bottom: 12px;
+
+    @include breakpoint(mobile) {
+        bottom: 8px;
+    }
+
+    & button {
+        border: none;
+        cursor: pointer;
+    }
+}
