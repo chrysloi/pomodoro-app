@@ -1,3 +1,4 @@
+import { Mode } from '../../ts/types'
 import ModeButton from './ModeButton'
 // Styles
 import styles from './Nav.module.scss'
@@ -10,12 +11,9 @@ function Nav() {
 
     return (
         <nav className={styles.nav}>
-            <ModeButton name='pomodoro' data='pomodoro' />
-            <ModeButton
-                name='short break'
-                data='shortBreak'
-            />
-            <ModeButton name='long break' data='longBreak' />
+            <ModeButton name='pomodoro' data={Mode.POMODORO} />
+            <ModeButton name='short break' data={Mode.SHORTBREAK} />
+            <ModeButton name='long break' data={Mode.LONGBREAK} />
         </nav>
     )
 }
