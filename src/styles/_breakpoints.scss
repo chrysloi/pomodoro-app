@@ -1,6 +1,6 @@
 $breakpoint-up: (
-    'mobile': 591px,
-    'tablet': 1000px,
+    'mobile': 425px,
+    'tablet': 768px,
 );
 
 @mixin breakpoint($size) {

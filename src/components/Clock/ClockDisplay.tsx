@@ -1,13 +1,18 @@
 import { useContext } from 'react'
 import { convertMinutes, convertSeconds } from '../../utils/timeConversion'
 import { TimerContext } from '../../contexts/TimerContext'
-
-// Styles
 import styles from './ClockDisplay.module.scss'
+import { Mode } from '../../ts/types'
 
-function ClockDisplay({ remainingTime }: { remainingTime: number }) {
+function ClockDisplay({
+    remainingTime,
+    mode,
+}: {
+    remainingTime: number
+    mode: Mode
+}) {
     const { isPlaying, handleStartStop, handleReset } = useContext(TimerContext)
-    
+
     return (
         <div className={styles.clockDisplay}>
             <div className={styles.time}>
@@ -19,11 +24,18 @@ function ClockDisplay({ remainingTime }: { remainingTime: number }) {
                     {convertSeconds(remainingTime)}
                 </span>
             </div>
-            <button className={`${styles.button} ${styles.startStop}`} onClick={handleStartStop}>
-                {isPlaying ? 'PAUSE' : 'START'}
+            <button
+                className={`${styles.button} ${styles.startStop}`}
+                onClick={() => handleStartStop(mode)}
+            >
+                {isPlaying[mode] ? 'PAUSE' : 'START'}
             </button>
-            <button className={`${styles.button} ${styles.reset}`} onClick={handleReset}>
-                <svg
+            <button
+                className={`${styles.button} ${styles.reset}`}
+                onClick={handleReset}
+                disabled={true}
+            >
+                {/* <svg
                     xmlns='http://www.w3.org/2000/svg'
                     // width='32px'
                     // height='32px'
@@ -46,7 +58,7 @@ function ClockDisplay({ remainingTime }: { remainingTime: number }) {
                         strokeWidth='32'
                         d='M256 58l80 80-80 80'
                     />
-                </svg>
+                </svg> */}
             </button>
         </div>
     )
