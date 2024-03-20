@@ -28,14 +28,15 @@ function ClockDisplay({
                 className={`${styles.button} ${styles.startStop}`}
                 onClick={() => handleStartStop(mode)}
             >
-                {isPlaying[mode] ? 'PAUSE' : 'START'}
+                {/* {isPlaying[mode] ? 'PAUSE' : 'START'} */}
+                {isPlaying ? 'PAUSE' : 'START'}
             </button>
             <button
                 className={`${styles.button} ${styles.reset}`}
-                onClick={handleReset}
+                onClick={() => handleReset(mode)}
                 disabled={true}
             >
-                {/* <svg
+                <svg
                     xmlns='http://www.w3.org/2000/svg'
                     // width='32px'
                     // height='32px'
@@ -58,7 +59,7 @@ function ClockDisplay({
                         strokeWidth='32'
                         d='M256 58l80 80-80 80'
                     />
-                </svg> */}
+                </svg>
             </button>
         </div>
     )

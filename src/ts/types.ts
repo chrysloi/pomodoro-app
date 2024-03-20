@@ -33,8 +33,18 @@ export interface Playing {
 }
 
 export interface TimerContextTypes {
-    resetKey: number
-    setResetKey: (resetKey: number) => void
+    resetKey: {
+        reset: number
+        pomodoro: number
+        longBreak: number
+        shortBreak: number
+    }
+    setResetKey: (key: {
+        reset: number
+        pomodoro: number
+        longBreak: number
+        shortBreak: number
+    }) => void
     mode: Mode
     setMode: (mode: Mode) => void
     currentMode: Mode
@@ -43,12 +53,13 @@ export interface TimerContextTypes {
     updateRemainingTime: (remain: number) => void
     timeDuration: TimerDuration
     setTimeDuration: (duration: any) => void
-    isPlaying: Playing
+    // isPlaying: Playing
+    isPlaying: boolean
     handleStartStop: (mode: Mode) => void
-    handleComplete: () => void
+    handleComplete: (mode: Mode) => void
     showSettings: boolean
     setShowSettings: (showSettings: any) => void
-    handleReset: () => void
+    handleReset: (mode: Mode) => void
 }
 
 export interface ModeButtonProps {

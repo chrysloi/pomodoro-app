@@ -1,18 +1,16 @@
-import {
-    createContext,
-    useState,
-    useMemo,
-    useRef,
-    useEffect,
-    useCallback,
-} from 'react'
+import { createContext, useState, useMemo, useRef, useCallback } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-
-// Types
-import { Mode, Playing, RemainingTime, TimerContextTypes } from '../ts/types'
+import { Mode, RemainingTime, TimerContextTypes } from '../ts/types'
+import useSound from 'use-sound'
+import mySound from '../assets/mixkit-achievement-bell-600.wav'
 
 export const TimerContext = createContext<TimerContextTypes>({
-    resetKey: 0,
+    resetKey: {
+        reset: 0,
+        pomodoro: 1,
+        longBreak: 2,
+        shortBreak: 3,
+    },
     setResetKey: () => null,
     mode: Mode.POMODORO,
     setMode: () => null,
@@ -30,11 +28,7 @@ export const TimerContext = createContext<TimerContextTypes>({
     },
     updateRemainingTime: () => null,
     setTimeDuration: () => null,
-    isPlaying: {
-        longBreak: false,
-        pomodoro: false,
-        shortBreak: false,
-    },
+    isPlaying: false,
     handleStartStop: () => null,
     handleComplete: () => null,
     showSettings: false,
@@ -43,20 +37,27 @@ export const TimerContext = createContext<TimerContextTypes>({
 })
 
 export function TimerProvider({ children }: { children: JSX.Element }) {
-    const [resetKey, setResetKey] = useState(0)
+    const [resetKey, setResetKey] = useState<{
+        reset: number
+        pomodoro: number
+        longBreak: number
+        shortBreak: number
+    }>({
+        reset: 0,
+        pomodoro: 1,
+        longBreak: 2,
+        shortBreak: 3,
+    })
     const [mode, setMode] = useState<Mode>(Mode.POMODORO)
+    const [count, setCount] = useState<number>(0)
     const [currentMode, setCurrentMode] = useState<Mode>(Mode.POMODORO)
     const [timeDuration, setTimeDuration] = useLocalStorage('timeDuration', {
         pomodoro: 25,
         shortBreak: 5,
         longBreak: 15,
     })
-    // const [remainingTime, updateRemainingTime] = useState<RemainingTime>()
-    const [isPlaying, setIsPlaying] = useState<Playing>({
-        longBreak: false,
-        pomodoro: false,
-        shortBreak: false,
-    })
+    const [isPlaying, setIsPlaying] = useState<boolean>(false)
+    const [play] = useSound(mySound)
     const [showSettings, setShowSettings] = useState(false)
     const remainingTime = useRef<RemainingTime>({
         pomodoro: 25 * 60,
@@ -68,38 +69,39 @@ export function TimerProvider({ children }: { children: JSX.Element }) {
         remainingTime.current[currentMode] = remain
     }, [])
 
-    // useEffect(() => {
-    //     const timerId = setInterval(() => {
-    //         remainingTime.current[currentMode] -= 1
-    //         if (remainingTime.current[currentMode] < 0) {
-    //             clearInterval(timerId)
-    //         }
-    //     }, 1000)
-    //     return () => {
-    //         clearInterval(timerId)
-    //     }
-    // }, [])
+    const handleStartStop = () => setIsPlaying((prevState) => !prevState)
 
-    const handleStartStop = (mode: Mode) =>
-        setIsPlaying((prevState) => ({
-            ...prevState,
-            [mode]: !prevState[mode],
-        }))
-    // const handleReset = () => setResetKey((resetKey: number) => resetKey + 1)
-    const handleReset = useCallback(() => {
-        remainingTime.current = {
-            pomodoro: 25 * 60,
-            shortBreak: 5 * 60,
-            longBreak: 15 * 60,
+    const handleReset = (mode: Mode) =>
+        setResetKey((key) => ({ ...key, [mode]: key[mode] + 1 }))
+
+    const toNextStep = useCallback(() => {
+        switch (mode) {
+            case Mode.POMODORO:
+                if (count <= 1) {
+                    setMode(Mode.SHORTBREAK)
+                    setIsPlaying((prevState) => !prevState)
+                    setCount(count + 1)
+                } else if (count >= 2) {
+                    setMode(Mode.LONGBREAK)
+                    setIsPlaying((prevState) => !prevState)
+                    setCount(0)
+                }
+                break
+            case Mode.SHORTBREAK:
+                setMode(Mode.POMODORO)
+                setIsPlaying((prevState) => !prevState)
+                break
+            case Mode.LONGBREAK:
+                setMode(Mode.POMODORO)
+                setIsPlaying((prevState) => !prevState)
+                break
         }
-    }, [])
-    const handleComplete = () => {
-        handleReset(),
-            setIsPlaying({
-                longBreak: false,
-                pomodoro: false,
-                shortBreak: false,
-            })
+    }, [mode])
+
+    const handleComplete = (mode: Mode) => {
+        play()
+        setIsPlaying((prevState) => !prevState)
+        toNextStep()
     }
 
     const value: TimerContextTypes = useMemo(

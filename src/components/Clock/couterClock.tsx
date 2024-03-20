@@ -42,7 +42,7 @@ export const CounterClock: React.FC<Props> = ({ convertedTime, isPlaying }) => {
                 /> */}
                 {/* <ClockDisplay remainingTime={remainingTime[mode]} mode={mode} /> */}
                 <CountdownCircleTimer
-                    key={resetKey}
+                    key={resetKey[currentMode]}
                     // isPlaying={currentMode === 'pomodoro'}
                     // duration={convertedTime}
                     isPlaying={isPlaying}
@@ -53,7 +53,7 @@ export const CounterClock: React.FC<Props> = ({ convertedTime, isPlaying }) => {
                     rotation='counterclockwise'
                     size={339}
                     onComplete={() => {
-                        handleComplete()
+                        handleComplete(mode)
                     }}
                 >
                     {({}) => (
@@ -67,7 +67,7 @@ export const CounterClock: React.FC<Props> = ({ convertedTime, isPlaying }) => {
             {/* mobile countdown timer */}
             <div className={styles.clockMobile}>
                 <CountdownCircleTimer
-                    key={resetKey}
+                    key={resetKey[currentMode]}
                     // isPlaying={currentMode === mode && isPlaying}
                     // duration={convertedTime}
                     isPlaying={isPlaying}
@@ -78,12 +78,12 @@ export const CounterClock: React.FC<Props> = ({ convertedTime, isPlaying }) => {
                     rotation='counterclockwise'
                     size={248.05}
                     onComplete={() => {
-                        handleComplete()
+                        handleComplete(mode)
                     }}
                 >
-                    {({ remainingTime }) => (
+                    {({}) => (
                         <ClockDisplay
-                            remainingTime={remainingTime}
+                            remainingTime={remainingTime[mode]}
                             mode={mode}
                         />
                     )}
