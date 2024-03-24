@@ -17,6 +17,8 @@
     opacity: 0.4;
     cursor: pointer;
     transition: all ease 0.3s;
+    transition-property: background-color;
+    transition-duration: 750ms;
 
     @include breakpoint('mobile') {
         width: 105.2px;
@@ -25,8 +27,18 @@
     }
 }
 
+.button:hover {
+    background-color: var(--app-color);
+}
+
 .active {
     background-color: var(--app-color);
     color: $darkBlue;
-    opacity: 100;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 750ms;
+}
+
+.active:hover {
+    opacity: 0.7;
 }

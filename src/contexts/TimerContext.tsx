@@ -79,21 +79,21 @@ export function TimerProvider({ children }: { children: JSX.Element }) {
             case Mode.POMODORO:
                 if (count <= 1) {
                     setMode(Mode.SHORTBREAK)
-                    setIsPlaying((prevState) => !prevState)
+                    // setIsPlaying((prevState) => !prevState)
                     setCount(count + 1)
                 } else if (count >= 2) {
                     setMode(Mode.LONGBREAK)
-                    setIsPlaying((prevState) => !prevState)
+                    // setIsPlaying((prevState) => !prevState)
                     setCount(0)
                 }
                 break
             case Mode.SHORTBREAK:
                 setMode(Mode.POMODORO)
-                setIsPlaying((prevState) => !prevState)
+                // setIsPlaying((prevState) => !prevState)
                 break
             case Mode.LONGBREAK:
                 setMode(Mode.POMODORO)
-                setIsPlaying((prevState) => !prevState)
+                // setIsPlaying((prevState) => !prevState)
                 break
         }
     }, [mode])

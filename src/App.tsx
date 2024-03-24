@@ -1,8 +1,5 @@
-// Context
 import { StyleProvider } from './contexts/StyleContext'
 import { TimerProvider } from './contexts/TimerContext'
-
-// Components
 import Pomodoro from './views/Pomodoro'
 
 function App() {
